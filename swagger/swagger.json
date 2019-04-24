@@ -1,0 +1,153 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "blog api swagger",
+        "version": "1.0.0",
+        "title": "Node Swagger",
+        "termsOfService": "",
+        "contact": {
+            "email": "loohopen@163.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "host": "127.0.0.1:3000",
+    "basePath": "/v1",
+    "tags": [
+        {
+            "name": "posts",
+            "description": "Everything about your Posts",
+            "externalDocs": {
+                "description": "Find out more",
+                "url": "http://swagger.io"
+            }
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/posts": {
+            "tags": [
+                "posts"
+            ],
+            "get": {
+                "description": "获取文章列表",
+                "responses": {
+                    "200": {
+                        "description": "文章列表",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/PostModel"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "pageSize",
+                        "name": "pageSize",
+                        "description": "每页数量",
+                        "type": "number"
+                    },
+                    {
+                        "in": "pageNum",
+                        "name": "pageNum",
+                        "description": "页码",
+                        "type": "number"
+                    }
+                ]
+            },
+            "post": {
+                "description": "创建一片文章",
+                "responses": {
+                    "200": {
+                        "description": "创建成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "文章字段",
+                        "required": true,
+                        "schema":{
+                            "$ref": "#/definitions/PostModel"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+
+
+
+
+
+
+
+
+
+    "definitions": {
+        "PostModel": {
+            "type": "object",
+            "required": ["title", "author"],
+            "properties":{
+                "title": {
+                    "type": "string"
+                },
+                "keywards": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "author": { "type": "string", "default": "hopen"},
+                "desc": { "type": "string"},
+                "content": { "type": "string"},
+                "words_count": { "type": "number"},
+                "img_url": { "type": "string"},
+                "type": { "type": "number"},
+                "status": { "type": "number"},
+                "origin": { "type": "number"},
+                "tags": { "type": "array", "items": {"type": "string"}},
+                "comments": { "type": "array", "items": {"type": "string"}},
+                "categrey": { "type": "array", "items": {"type": "string"}},
+                "meta_data": { "type": "object", "items":{
+                    "type": "object",
+                    "properties":{
+                        "views": "string",
+                        "likes": "string",
+                        "unlikes": "string",
+                        "comments": "string"
+                    }
+                }},
+                "create_time": { "type": "string", "format": "date-time"},
+                "update_time": { "type": "string", "format": "date-time"}
+            }
+        },
+        "TagModel": {
+            "type": "object",
+            "properties": {
+                "post_id": "string"
+            },
+            "xml": {
+                "name": "TagModel"
+            }
+        }
+    }
+}
