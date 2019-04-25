@@ -4,11 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var usersRouter = require('./routes/users');
-
 const mongodb = require('./core/mongodb');
 const initModel = require('./models/index');
-const indexRouter = require('./routes/index');
+const initRouter = require('./routes/index');
 
 var app = express();
 
@@ -22,14 +20,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// init mongodb
+// 初始化数据库 mongodb
 mongodb.connect();
 
-// init model
+// 初始化 model
 initModel();
 
-// init all route
-indexRouter(app);
+// 初始化路由 route
+initRouter(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

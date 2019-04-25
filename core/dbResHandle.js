@@ -1,3 +1,5 @@
+
+const UTIL = require('./util');
 /**
  * dbResHandle 统一处理处理数据库操作Handle函数
  * @param {object} res  http response对象
@@ -17,7 +19,8 @@ module.exports = (res, data = null, code = 10000, msg = '太火爆了') => {
         console.error(`[ERROR]: ${data}`);
         data = null;
     }
-
+    
+    console.info(`[出参]-[${UTIL.getNow()}]-[${res.req.method}]-[${res.req.url}]: ${JSON.stringify(data)}`)
     // 统一返回体格式
     let _resData = {code, msg, data};
     res.json(_resData)

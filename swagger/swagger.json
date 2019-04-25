@@ -52,13 +52,13 @@
                 },
                 "parameters": [
                     {
-                        "in": "pageSize",
+                        "in": "query",
                         "name": "pageSize",
                         "description": "每页数量",
                         "type": "number"
                     },
                     {
-                        "in": "pageNum",
+                        "in": "query",
                         "name": "pageNum",
                         "description": "页码",
                         "type": "number"
@@ -88,6 +88,92 @@
                         "schema":{
                             "$ref": "#/definitions/PostModel"
                         }
+                    }
+                ]
+            }
+        },
+        "/post/{postId}": {
+            "tags": [
+                "posts"
+            ],
+            "get": {
+                "description": "获取单个文章",
+                "responses": {
+                    "200": {
+                        "description": "文章详情",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/definitions/PostModel"
+                                    
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "postId",
+                        "description": "文章ID",
+                        "type": "string"
+                    }
+                ]
+            },
+            "put": {
+                "description": "更新文章",
+                "responses": {
+                    "200": {
+                        "description": "更新成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "postId",
+                        "description": "文章ID",
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "文章字段",
+                        "required": true,
+                        "schema":{
+                            "$ref": "#/definitions/PostModel"
+                        }
+                    }
+                ]
+            },
+            "delete": {
+                "description": "删除单个文章",
+                "responses": {
+                    "200": {
+                        "description": "删除结果",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/definitions/PostModel"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "postId",
+                        "description": "文章ID",
+                        "type": "string"
                     }
                 ]
             }

@@ -20,8 +20,14 @@ module.exports = app => {
   app.route(`/${CONFIG.VERSION}/test`)
     .get(testControl.testGetAll);
 
-  // 文章接口
+  // 获取文章列表，创建文章接口
   app.route(`/${CONFIG.VERSION}/posts`)
     .get(postControl.getAllPost)
     .post(postControl.createAPost);
+
+  // 修改文章和删除文章接口
+  app.route(`/${CONFIG.VERSION}/post/:postId`)
+    .get(postControl.getPostById)
+    .put(postControl.updatePostById)
+    .delete(postControl.deletePostById);
 };
