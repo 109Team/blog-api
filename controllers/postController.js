@@ -48,9 +48,13 @@ exports.getPostById = (req, res) => {
 
 // 更新单个文章
 exports.updatePostById = (req, res) => {
-    PostModel.findOneAndUpdate(req.params.postId, req.body, {new: true})
+    PostModel.update({_id: req.params.postId}, req.body, {new: true})
         .then(data => {
-            resHandle(res, data, 200, '更新成功');
+            if(data.n === 1){
+                resHandle(res, data, 200, '更新成功');
+            }else{
+                resHandle(res, data, 200, '文章不存在');
+            }
         })
         .catch(err => {
             resHandle(res, err);
@@ -61,7 +65,11 @@ exports.updatePostById = (req, res) => {
 exports.deletePostById = (req, res) => {
     PostModel.remove({_id: req.params.postId})
         .then(data => {
-            resHandle(res, data, 200, '删除成功');
+            if(data.n === 1){
+                resHandle(res, data, 200, '删除成功');
+            }else{
+                resHandle(res, data, 200, '文章不存在');
+            }
         })
         .catch(err => {
             resHandle(res, err);

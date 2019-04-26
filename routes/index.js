@@ -1,6 +1,17 @@
-const swaggerServer = require('../swagger/swagger');
+const filter = require('./filter');
+const AUTH = require('../core/auth');
 const CONFIG = require('../app.config');
+const swaggerServer = require('../swagger/swagger');
+
+/**
+ * 统一路由处理
+ * @package {AUTH}          权限验证中间件
+ * @package {filter}        对所有请求拦截过滤
+ * @package {swaggerServer} 定义swagger路由
+ */
 module.exports = app => {
+  // 初始化filter
+  filter(app);
 
   // 重定向到swagger
   app.route('/')
@@ -23,11 +34,11 @@ module.exports = app => {
   // 获取文章列表，创建文章接口
   app.route(`/${CONFIG.VERSION}/posts`)
     .get(postControl.getAllPost)
-    .post(postControl.createAPost);
+    .post(AUTH, postControl.createAPost);
 
   // 修改文章和删除文章接口
   app.route(`/${CONFIG.VERSION}/post/:postId`)
     .get(postControl.getPostById)
-    .put(postControl.updatePostById)
-    .delete(postControl.deletePostById);
+    .put(AUTH, postControl.updatePostById)
+    .delete(AUTH, postControl.deletePostById);
 };

@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "blog api swagger",
-        "version": "1.0.0",
+        "version": "1.0.1",
         "title": "Node Swagger",
         "termsOfService": "",
         "contact": {
@@ -88,6 +88,12 @@
                         "schema":{
                             "$ref": "#/definitions/PostModel"
                         }
+                    },
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "权限",
+                        "type": "string"
                     }
                 ]
             }
@@ -150,6 +156,12 @@
                         "schema":{
                             "$ref": "#/definitions/PostModel"
                         }
+                    },
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "权限",
+                        "type": "string"
                     }
                 ]
             },
@@ -173,6 +185,12 @@
                         "in": "path",
                         "name": "postId",
                         "description": "文章ID",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "权限",
                         "type": "string"
                     }
                 ]
