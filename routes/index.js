@@ -1,7 +1,11 @@
+const mongoose = require('mongoose');
+
 const filter = require('./filter');
 const AUTH = require('../core/auth');
 const CONFIG = require('../app.config');
 const swaggerServer = require('../swagger/swagger');
+
+const PostController = require('../controllers/postController');
 
 /**
  * 统一路由处理
@@ -22,23 +26,18 @@ module.exports = app => {
   // API swagger
   app.use('/api-docs', ...swaggerServer());
 
-  // 引入schema
-  const testControl = require('../controllers/testController');
-  const postControl = require('../controllers/postController');
+  // 实例化controller
+  const postControl = new PostController(mongoose);
 
   // APIs
-  // 测试接口
-  app.route(`/${CONFIG.VERSION}/test`)
-    .get(testControl.testGetAll);
-
   // 获取文章列表，创建文章接口
   app.route(`/${CONFIG.VERSION}/posts`)
-    .get(postControl.getAllPost)
-    .post(AUTH, postControl.createAPost);
+    .get((req, res) => {postControl.getAllPost(req, res)})
+    .post(AUTH, (req, res)=> {postControl.createAPost(req, res)});
 
   // 修改文章和删除文章接口
   app.route(`/${CONFIG.VERSION}/post/:postId`)
-    .get(postControl.getPostById)
-    .put(AUTH, postControl.updatePostById)
-    .delete(AUTH, postControl.deletePostById);
+    .get((req, res) => {postControl.getPostById(req, res)})
+    .put(AUTH, (req, res) => {postControl.updatePostById(req, res)})
+    .delete(AUTH, (req, res) => {postControl.deletePostById(req, res)});
 };
