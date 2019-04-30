@@ -3,7 +3,7 @@ const PostService = require('../services/postService');
 
 class PostController {
     constructor(mongoose) {
-        this.postService = new PostService(mongoose);
+        this.postService = new PostService(mongoose, 'PostModel');
     }
 
     // 获取所有文章，支持分页

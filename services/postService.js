@@ -1,6 +1,6 @@
 class PostService {
-    constructor(mongoose){
-        this.PostModel = mongoose.model('PostModel');
+    constructor(mongoose, modelName){
+        this.PostModel = mongoose.model(modelName);
     }
 
     // 查找
