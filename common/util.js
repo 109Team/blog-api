@@ -1,5 +1,5 @@
 exports.getTimeString = (date = Date.now()) => {
-    return new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
+    return new Date(+date + 8 * 60 * 60 * 1000).toISOString().replace(/T/, ' ').replace(/\..+/, '');
 }
 
 exports.isArray = (arr) => {
