@@ -91,7 +91,7 @@
                     },
                     {
                         "in": "header",
-                        "name": "Authorization",
+                        "name": "Authoriation",
                         "description": "权限",
                         "type": "string"
                     }
@@ -159,7 +159,7 @@
                     },
                     {
                         "in": "header",
-                        "name": "Authorization",
+                        "name": "Authoriation",
                         "description": "权限",
                         "type": "string"
                     }
@@ -189,7 +189,7 @@
                     },
                     {
                         "in": "header",
-                        "name": "Authorization",
+                        "name": "Authoriation",
                         "description": "权限",
                         "type": "string"
                     }

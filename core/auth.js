@@ -4,7 +4,7 @@ const resHandle = require('../core/dbResHandle');
 const CONFIG = require('../app.config');
 
 module.exports = (req, res, next) => {
-    const _token = req.headers.authorization;
+    const _token = req.headers.Authoriation;
     if(!_token){
         return resHandle(res, null, 401, '无权访问');
     }
