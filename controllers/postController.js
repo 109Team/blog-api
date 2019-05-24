@@ -1,6 +1,10 @@
 const resHandle = require('../core/dbResHandle');
 const PostService = require('../services/postService');
 
+/**
+ * 文章控制器
+ * @param {object} mongoose mongoose对象
+ */
 class PostController {
     constructor(mongoose) {
         this.postService = new PostService(mongoose, 'PostModel');
