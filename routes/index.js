@@ -35,7 +35,7 @@ module.exports = app => {
     .get((req, res) => {postControl.getAllPost(req, res)})
     .post(AUTH, (req, res)=> {postControl.createAPost(req, res)});
 
-  // 修改文章和删除文章接口
+  // 修改文章和删除文章接口 
   app.route(`/${CONFIG.VERSION}/post/:postId`)
     .get((req, res) => {postControl.getPostById(req, res)})
     .put(AUTH, (req, res) => {postControl.updatePostById(req, res)})
