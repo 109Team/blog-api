@@ -10,6 +10,12 @@ ___
 >
 > RESTful由基本URL，URL，媒体类型等组成。
 >
+> ```javascript
+> https://api.example.com/api/v1/
+> https://api.example.com/api/v1/posts
+> https://api.example.com/api/v1/posts/id
+> ```
+>
 > 本次分享如何用Node.js创建REST风格的API
 
 #### 1. 技术栈
@@ -122,7 +128,6 @@ ___
 >    initGlobal();
 >    ```
 >
->    
 
 
 
@@ -286,6 +291,12 @@ ___
 >    const mongoose = require('mongoose');
 >    const Schema = mongoose.Schema;
 >    
+>    //class  Schema {
+>        type: mongodb --- > Document -- > key  value  
+>       find(){}
+>       delete(){}
+>    }
+>    
 >    let PostSchema = new Schema({
 >        // 文章标题
 >        title: {
@@ -330,7 +341,6 @@ ___
 >    initModel();
 >    ```
 >
->    
 
 现在我们可以手动在数据库中创建几条数据来验证我们的接口是否可以用
 
@@ -460,12 +470,12 @@ ___
 > module.exports = (req, res, next) => {
 >     const _token = req.headers.authoriation;
 >     if(!_token){
->         return resHandle(res, null, 401, '无权访问');
+>         return resHandle(res, null, 403, '无权访问');
 >     }
 >     
 >     jwt.verify(_token, CONFIG.JWTSECRET, (err, decode) => {
 >         if(err){
->             return resHandle(res, err, 401, '无权访问');
+>             return resHandle(res, err, 403, '无权访问');
 >         }else{
 >             req.user = decode;
 >             return next();
@@ -507,6 +517,7 @@ ___
 >     },
 >     categories: {
 >         default: { appenders: ['logstash', 'console'], level: 'debug' }
+>         appjs
 >     }
 > });
 > 
@@ -514,7 +525,19 @@ ___
 > 
 > ```
 >
->  
+> ```mermaid
+> graph LR
+> 应用 --> logger
+> logger --> appenders
+> logger --> console
+> logger --> File
+> logger --> SMTP
+> logger --> logstash
+> ```
+>
+> 这种方式存在的问题就是当elk服务挂掉的话，会出现部分日志丢失的问题，为此可以考虑加入kafka等消息中间件做代理层，或者退一步，当elk挂掉后将日志写入文件，elk重启后先读取丢失的文本日志，push到elk再转接elk
+>
+> http://116.62.56.222:5601/
 
 ####5 总结
 

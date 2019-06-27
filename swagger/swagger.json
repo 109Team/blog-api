@@ -98,7 +98,7 @@
                 ]
             }
         },
-        "/post/{postId}": {
+        "/posts/{postId}": {
             "tags": [
                 "posts"
             ],
