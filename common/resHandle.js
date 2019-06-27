@@ -1,5 +1,4 @@
 
-const UTIL = require('../common/util');
 /**
  * dbResHandle 统一处理处理数据库操作Handle函数
  * @param {object} res  http response对象
@@ -10,13 +9,13 @@ const UTIL = require('../common/util');
 module.exports = (res, data = null, code = 10000, msg = '太火爆了') => {
     // res 参数必传
     if(!res){
-        console.error(`invalid caller, res argument is required!`);
+        LOG.error(`invalid caller, res argument is required!`);
         return;
     }
 
     // 打印错误日志
     if(code !== 200){
-        console.error(`[ERROR]: ${data}`);
+        LOG.error(`[ERROR]: ${data}`);
         data = null;
     }
 
@@ -26,6 +25,6 @@ module.exports = (res, data = null, code = 10000, msg = '太火爆了') => {
         _resData.count = data.length
     
     //打印出参：格式： 出参 - 时间 - 请求方式 - 请求地址 - 数据
-    console.info(`[出参]-[${UTIL.getTimeString()}]-[${res.req.method}]-[${res.req.url}]: ${JSON.stringify(_resData)}`);
+    LOG.info(`[出参]-[${UTIL.getTimeString()}]-[${res.req.method}]-[${res.req.url}]: ${JSON.stringify(_resData)}`);
     res.json(_resData)
 }

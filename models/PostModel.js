@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-let PostModel = new Schema({
+let PostSchema = new Schema({
     // 文章标题
     title: {
         type: String,
@@ -141,4 +141,4 @@ let PostModel = new Schema({
     }
 });
 
-module.exports = mongoose.model('PostModel', PostModel);
+module.exports = mongoose.model('PostModel', PostSchema);

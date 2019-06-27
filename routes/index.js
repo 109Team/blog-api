@@ -1,8 +1,7 @@
-const mongoose = require('mongoose');
-
 const filter = require('./filter');
-const AUTH = require('../core/auth');
-const CONFIG = require('../app.config');
+const AUTH = require('../middleware/auth');
+const request = require('../middleware/request');
+
 const swaggerServer = require('../swagger/swagger');
 
 const PostController = require('../controllers/postController');
@@ -22,14 +21,16 @@ module.exports = app => {
     .get((req, res) => {
       res.redirect('/api-docs');
     });
-
+    
   // API swagger
   app.use('/api-docs', ...swaggerServer());
 
   // 实例化controller
-  const postControl = new PostController(mongoose);
+  const postControl = new PostController();
 
   // APIs
+  app.all(`/${CONFIG.VERSION}/*`, request);
+
   // 获取文章列表，创建文章接口
   app.route(`/${CONFIG.VERSION}/posts`)
     .get((req, res) => {postControl.getAllPost(req, res)})

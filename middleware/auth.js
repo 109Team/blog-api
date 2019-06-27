@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const resHandle = require('../core/dbResHandle');
-const CONFIG = require('../app.config');
+const resHandle = require('../common/resHandle');
 
 module.exports = (req, res, next) => {
     const _token = req.headers.authoriation;

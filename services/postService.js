@@ -1,11 +1,10 @@
+const mongoose = require('mongoose');
 /**
  * 文章数据服务层
- * @param {object} mongoose   mongoose对象
- * @param {string} modelName  映射模型的名称
  */
 class PostService {
-    constructor(mongoose, modelName){
-        this.PostModel = mongoose.model(modelName);
+    constructor(){
+        this.PostModel = mongoose.model('PostModel');
     }
 
     /**
