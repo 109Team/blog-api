@@ -23,8 +23,7 @@ let PostSchema = new Schema({
     // 作者
     author: {
         type: String,
-        required: true,
-        validate: /\S+/
+        default: 'Hopen'
     },
 
     // 文章描述

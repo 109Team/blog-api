@@ -13,32 +13,35 @@ const PostController = require('../controllers/postController');
  * @package {swaggerServer} 定义swagger路由
  */
 module.exports = app => {
-  // 初始化filter
-  filter(app);
+	// 初始化filter
+	filter(app);
 
-  // 重定向到swagger
-  app.route('/')
-    .get((req, res) => {
-      res.redirect('/api-docs');
-    });
-    
-  // API swagger
-  app.use('/api-docs', ...swaggerServer());
+	// 重定向到swagger
+	app.route('/')
+		.get((req, res) => {
+			res.redirect('/api-docs');
+		});
 
-  // 实例化controller
-  const postControl = new PostController();
+	// API swagger
+	app.use('/api-docs', ...swaggerServer());
 
-  // APIs
-  app.all(`/${CONFIG.VERSION}/*`, request);
+	// 实例化controller
+	const postControl = new PostController();
 
-  // 获取文章列表，创建文章接口
-  app.route(`/${CONFIG.VERSION}/posts`)
-    .get((req, res) => {postControl.getAllPost(req, res)})
-    .post(AUTH, (req, res)=> {postControl.createAPost(req, res)});
+	// APIs
+	app.all(`/${CONFIG.VERSION}/*`, request);
 
-  // 修改文章和删除文章接口 
-  app.route(`/${CONFIG.VERSION}/posts/:postId`)
-    .get((req, res) => {postControl.getPostById(req, res)})
-    .put(AUTH, (req, res) => {postControl.updatePostById(req, res)})
-    .delete(AUTH, (req, res) => {postControl.deletePostById(req, res)});
+	// 获取文章列表，创建文章接口
+	app.route(`/${CONFIG.VERSION}/posts`)
+		.get((req, res) => {debugger; postControl.getAllPost(req, res) })
+		.post(AUTH, (req, res) => { postControl.createAPost(req, res) });
+
+	// 修改文章和删除文章接口 
+	app.route(`/${CONFIG.VERSION}/posts/:postId`)
+		.get((req, res) => {debugger; postControl.getPostById(req, res) })
+		.put(AUTH, (req, res) => { postControl.updatePostById(req, res) })
+		.delete(AUTH, (req, res) => { postControl.deletePostById(req, res) });
+
+	app.route(`/${CONFIG.VERSION}/postscount`)
+		.get((req, res) => {debugger; postControl.getCount(req, res)});
 };

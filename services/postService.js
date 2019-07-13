@@ -51,6 +51,14 @@ class PostService {
     delete(conditions){
         return this.PostModel.remove(conditions);
     }
+
+    /**
+     * 查询总数
+     * @param {object} conditions 过滤条件
+     */
+    getCount(conditions){
+        return this.PostModel.countDocuments(conditions);
+    }
 }
 
 module.exports = PostService;
