@@ -21,8 +21,6 @@ module.exports = (res, data = null, code = 10000, msg = '太火爆了') => {
 
     // 统一返回体格式
     let _resData = {code, msg, data};
-    if(UTIL.isArray(data))
-        _resData.count = data.length
     
     //打印出参：格式： 出参 - 时间 - 请求方式 - 请求地址 - 数据
     LOG.info(`[出参]-[${UTIL.getTimeString()}]-[${res.req.method}]-[${res.req.url}]: ${JSON.stringify(_resData)}`);

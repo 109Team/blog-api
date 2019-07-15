@@ -11,7 +11,7 @@ class PostController {
 
     // 获取所有文章，支持分页
     getAllPost(req, res) {
-        let _pageSize = parseInt(req.query.pageSize) || 10,
+        let _pageSize = parseInt(req.query.pageSize) || null,
             _pageNum = parseInt(req.query.pageNum) || 1,
             _sort;
             try{
@@ -26,10 +26,15 @@ class PostController {
             sort: _sort
         }
 
-        this.postService.find(null, null, _options)
-            .then(data => {
-                
-                resHandle(res, data, 200, '成功');
+        Promise.all([
+                this.postService.find(null, null, _options),
+                this.postService.getCount({})
+            ])
+            .then((data)=>{
+                let _data = {}
+                _data.data = data[0];
+                _data.allCount = data[1];
+                resHandle(res, _data, 200, '成功');
             })
             .catch(err => {
                 resHandle(res, err);
